@@ -1,13 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace 'com.mahad.login'
-    compileSdk {
-        version = release(37)
-    }
+    compileSdk 37
 
     defaultConfig {
         applicationId "com.mahad.login"
@@ -47,6 +46,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
     testImplementation libs.junit
     androidTestImplementation platform(libs.androidx.compose.bom)

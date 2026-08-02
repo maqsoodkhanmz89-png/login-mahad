@@ -27,6 +27,14 @@
             android:name=".HomeActivity"
             android:exported="false"
             android:label="Home" />
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false"
+            android:label="@string/sign_up" />
+        <activity
+            android:name=".DatabaseActivity"
+            android:exported="false"
+            android:label="Database Records" />
     </application>
 
 </manifest>

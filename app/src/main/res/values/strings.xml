@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Login-Screen</string>
     <string name="welcome_home">Welcome Home!</string>
+    <string name="create_account">Create account</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="already_have_account">Already have an account? Login</string>
+    <string name="database">Database</string>
 </resources>

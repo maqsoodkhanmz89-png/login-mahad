@@ -7,9 +7,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.mahad.login.data.AppDatabase
 import com.mahad.login.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val database = AppDatabase.getDatabase(this)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = "Login"
@@ -48,7 +54,29 @@ class MainActivity : AppCompatActivity() {
         binding.etPassword.addTextChangedListener(textWatcher)
 
         binding.btnLogin.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
+            val email = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString()
+
+            lifecycleScope.launch {
+                val user = database.userDao().getUserByEmail(email)
+                if (user != null && user.password == password) {
+                    val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(this@MainActivity, "Invalid Email or Password", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
+        binding.tvCreateAccount.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.tvDatabaseLabel.setOnClickListener {
+            val intent = Intent(this, DatabaseActivity::class.java)
             startActivity(intent)
         }
     }
